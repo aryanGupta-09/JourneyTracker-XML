@@ -13,10 +13,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: StopAdapter
     private lateinit var progressText: TextView
+    private lateinit var journeyCompletedText: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var switchUnitButton: Button
     private lateinit var nextStopButton: Button
     private lateinit var progressArrow: View
+    private lateinit var distanceCovered: TextView
+    private lateinit var distanceRemaining: TextView
 
     private var isKm = true
     private lateinit var journeyManager: JourneyManager
@@ -25,39 +28,58 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Initialize views
-        recyclerView = findViewById(R.id.recyclerView)
-        progressText = findViewById(R.id.progressText)
-        progressBar = findViewById(R.id.progressBar)
-        switchUnitButton = findViewById(R.id.switchUnitButton)
-        nextStopButton = findViewById(R.id.nextStopButton)
-        progressArrow = findViewById(R.id.progressArrow)
-
+        // Initialize JourneyManager first
         journeyManager = JourneyManager(this)
 
-        // Set up RecyclerView
-        adapter = StopAdapter(journeyManager.stops, isKm)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
+        // Initialize recyclerView before using it
+        recyclerView = findViewById(R.id.recyclerView)
+
+        // Initialize other views
+        initializeViews()
+
+        // Set up RecyclerView (now recyclerView is initialized)
+        setupRecyclerView()
 
         // Initialize progress
         updateProgress()
 
-        // Set up scroll listener to update arrow position
+        // Set up button listeners
+        setupButtonListeners()
+    }
+
+    private fun initializeViews() {
+        recyclerView = findViewById(R.id.recyclerView)
+        progressText = findViewById(R.id.progressText)
+        journeyCompletedText = findViewById(R.id.journeyCompletedText)
+        progressBar = findViewById(R.id.progressBar)
+        switchUnitButton = findViewById(R.id.switchUnitButton)
+        nextStopButton = findViewById(R.id.nextStopButton)
+        progressArrow = findViewById(R.id.progressArrow)
+        distanceCovered = findViewById(R.id.distanceCovered)
+        distanceRemaining = findViewById(R.id.distanceRemaining)
+    }
+
+    private fun setupRecyclerView() {
+        adapter = StopAdapter(journeyManager.stops, isKm)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+
+        // Set up scroll listener
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 updateProgressArrow()
             }
         })
+    }
 
-        // Switch Units button click listener
+    private fun setupButtonListeners() {
         switchUnitButton.setOnClickListener {
             isKm = !isKm
             adapter.updateUnit(isKm)
+            updateProgress()
         }
 
-        // Next Stop button click listener
         nextStopButton.setOnClickListener {
             journeyManager.markNextStop()
             updateProgress()
@@ -68,8 +90,27 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateProgress() {
         val progress = journeyManager.getProgress()
-        progressText.text = "Progress: $progress%"
-        progressBar.progress = progress
+        progressText.text = String.format("Progress: %.1f%%", progress)
+        progressBar.progress = progress.toInt()
+
+        // Show/hide journey completed text
+        journeyCompletedText.visibility = if (progress >= 99.9) View.VISIBLE else View.GONE
+
+        // Update distance information
+        val covered = if (isKm) {
+            String.format("%.1f km", journeyManager.getDistanceCovered())
+        } else {
+            String.format("%.1f miles", journeyManager.getDistanceCovered() * 0.621371)
+        }
+        
+        val remaining = if (isKm) {
+            String.format("%.1f km", journeyManager.getRemainingDistance())
+        } else {
+            String.format("%.1f miles", journeyManager.getRemainingDistance() * 0.621371)
+        }
+
+        distanceCovered.text = "Covered: $covered"
+        distanceRemaining.text = "Remaining: $remaining"
         updateProgressArrow()
     }
 
@@ -83,21 +124,13 @@ class MainActivity : AppCompatActivity() {
             if (currentPosition >= 0) {
                 var visibleHeight = 0
                 
-                // If current position is visible, calculate height up to it
                 if (currentPosition >= firstVisibleItem && currentPosition <= lastVisibleItem) {
                     val currentView = layoutManager.findViewByPosition(currentPosition)
                     currentView?.let { view ->
-                        // Add extra padding to accommodate the circle
-                        visibleHeight = view.bottom + 20  // Adding padding for circle
+                        visibleHeight = view.bottom - view.height/4
                     }
-                } 
-                // If current position is below visible area, use full recycler height
-                else if (currentPosition > lastVisibleItem) {
+                } else if (currentPosition > lastVisibleItem) {
                     visibleHeight = recyclerView.height
-                }
-                // If current position is above visible area, use zero height
-                else {
-                    visibleHeight = 0
                 }
 
                 progressArrow.layoutParams.height = visibleHeight
@@ -108,13 +141,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    
+
     private fun scrollToNextStop() {
         val currentPosition = journeyManager.getCurrentPosition()
         val layoutManager = recyclerView.layoutManager as LinearLayoutManager
         val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
         
-        // Scroll when reaching last visible item
         if (currentPosition == lastVisibleItem) {
             layoutManager.scrollToPositionWithOffset(currentPosition, 0)
         }

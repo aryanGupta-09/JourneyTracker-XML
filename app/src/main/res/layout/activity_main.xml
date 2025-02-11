@@ -4,35 +4,82 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Buttons -->
-    <Button
-        android:id="@+id/switchUnitButton"
-        android:layout_width="match_parent" 
-        android:layout_height="wrap_content"
-        android:text="Switch Units" />
-
-    <Button
-        android:id="@+id/nextStopButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Next Stop" />
-
     <!-- Progress Section -->
     <TextView
         android:id="@+id/progressText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Progress: 0%"
+        android:textSize="16sp" />
+    
+    <TextView
+        android:id="@+id/journeyCompletedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" - Journey Completed"
         android:textSize="16sp"
-        android:layout_marginTop="16dp" />
+        android:textColor="@android:color/holo_green_dark"
+        android:visibility="gone"
+        android:layout_marginStart="4dp" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Distance Information -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/distanceCovered"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:gravity="start"
+            android:text="Covered: 0 km"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/distanceRemaining"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:gravity="start"
+            android:text="Remaining: 0 km"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- Buttons in horizontal layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/switchUnitButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:text="Switch Units" />
+
+        <Button
+            android:id="@+id/nextStopButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Next Stop" />
+    </LinearLayout>
 
     <!-- Stops List with Vertical Progress -->
     <LinearLayout

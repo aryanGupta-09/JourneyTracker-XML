@@ -29,7 +29,7 @@ class StopAdapter(
         } else {
             holder.itemView.context.getColor(android.R.color.black)
         }
-
+    
         holder.stopName.apply {
             text = stop.name
             setTextColor(textColor)
@@ -39,20 +39,25 @@ class StopAdapter(
             text = if (isKm) {
                 String.format("%.1f km", stop.distanceKm)
             } else {
-                String.format("%.1f miles", stop.distanceMiles())
+                String.format("%.1f miles", stop.distanceKm * 0.621371)
             }
             setTextColor(textColor)
         }
         
         holder.visaRequirement.apply {
             text = if (stop.transitVisaRequired) "Visa Required" else "No Visa"
-            setTextColor(textColor)
+            setTextColor(when {
+                isVisited -> holder.itemView.context.getColor(android.R.color.holo_green_dark)
+                stop.transitVisaRequired -> holder.itemView.context.getColor(android.R.color.holo_red_dark)
+                else -> textColor
+            })
         }
-
+    
+        // Calculate time based on the distance to this stop
         val timeRemaining = if (isKm) {
             stop.distanceKm / averageSpeedKmH.toDouble()
         } else {
-            stop.distanceMiles() / averageSpeedMilesH.toDouble()
+            (stop.distanceKm * 0.621371) / averageSpeedMilesH.toDouble()
         }
         val hours = timeRemaining.toInt()
         val minutes = ((timeRemaining - hours) * 60).toInt()

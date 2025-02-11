@@ -1,47 +1,20 @@
-New York, 299,false
-London, 5567,true
-Paris, 5834,true
-Berlin, 6387,true
-Tokyo, 10850,true
-Sydney, 15900,true
-Los Angeles, 3970, false
-San Francisco, 4130, false
-Chicago, 1180, false
-Miami, 1750, false
-Toronto, 800, true
-Vancouver, 3350, false
-Mexico City, 3600, false
-Buenos Aires, 8500, true
-Rio de Janeiro, 8200, true
-Cape Town, 12500, true
-Johannesburg, 12700, true
-Dubai, 11600, true
-Singapore, 15300, false
-Hong Kong, 14400, false
-Beijing, 11800, false
-Shanghai, 12000, false
-Seoul, 11000, true
-Bangkok, 14000, false
-Mumbai, 13000, true
-Delhi, 12500, true
-Istanbul, 9000, true
-Moscow, 9500, true
-Rome, 7000, true
-Madrid, 7500, false
-Lisbon, 8000, false
-Athens, 8500, true
-Cairo, 10000, true
-Nairobi, 11500, true
-Lagos, 12000, true
-Kinshasa, 13000, false
-Jakarta, 14500, true
-Manila, 15000, true
-Kuala Lumpur, 15500, false
-Hanoi, 16000, true
-Ho Chi Minh City, 16500, true
-Melbourne, 17000, true
-Brisbane, 17500, true
-Perth, 18000, true
-Auckland, 18500, false
-Wellington, 19000, false
-Christchurch, 19500, true
+New York, 0, false
+Toronto, 556, false
+London, 5711, true
+Paris, 344, true
+Berlin, 878, true
+Dubai, 4625, true
+Mumbai, 1927, true
+Bangkok, 3002, false
+Singapore, 1425, false
+Jakarta, 880, false
+Sydney, 5473, false
+Auckland, 2141, false
+Tokyo, 8205, true
+Seoul, 1177, true
+Shanghai, 1300, true
+Beijing, 1064, true
+Hong Kong, 1987, false
+Manila, 1240, false
+Los Angeles, 11225, false
+Mexico City, 3455, false

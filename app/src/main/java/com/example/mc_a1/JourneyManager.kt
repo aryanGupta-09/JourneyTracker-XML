@@ -41,9 +41,27 @@ class JourneyManager(context: Context) {
         return currentPosition
     }
 
-    fun getProgress(): Int {
-        return if (stops.isNotEmpty() && currentPosition >= 0) {
-            ((currentPosition + 1) * 100) / stops.size
-        } else 0
+    fun getProgress(): Double {
+        val totalDistance = getTotalDistance()
+        if (totalDistance == 0.0) return 0.0
+        
+        val coveredDistance = getDistanceCovered()
+        return ((coveredDistance * 100) / totalDistance)
+    }
+
+    fun getTotalDistance(): Double {
+        return stops.sumOf { it.distanceKm }
+    }
+
+    fun getDistanceCovered(): Double {
+        return if (currentPosition >= 0) {
+            stops.take(currentPosition + 1).sumOf { it.distanceKm }
+        } else 0.0
+    }
+
+    fun getRemainingDistance(): Double {
+        val total = getTotalDistance()
+        val covered = getDistanceCovered()
+        return total - covered
     }
 }
