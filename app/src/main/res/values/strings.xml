@@ -1,3 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MC_A1</string>
+    <string name="app_name">Travel Journey</string>
+    <string name="switch_units">Switch Units</string>
+    <string name="next_stop">Next Stop</string>
+    <string name="progress">Journey Progress</string>
+    <string name="total_distance">Total Distance:</string>
+    <string name="distance_covered">Distance Covered:</string>
+    <string name="distance_remaining">Distance Remaining:</string>
 </resources>
