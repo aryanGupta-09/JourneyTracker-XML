@@ -4,9 +4,10 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Buttons -->
     <Button
         android:id="@+id/switchUnitButton"
-        android:layout_width="match_parent"
+        android:layout_width="match_parent" 
         android:layout_height="wrap_content"
         android:text="Switch Units" />
 
@@ -14,9 +15,10 @@
         android:id="@+id/nextStopButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Next Stop"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:text="Next Stop" />
 
+    <!-- Progress Section -->
     <TextView
         android:id="@+id/progressText"
         android:layout_width="wrap_content"
@@ -27,17 +29,30 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progress="0"
-        android:max="100"/>
+        android:layout_marginTop="8dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <!-- Stops List with Vertical Progress -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="16dp"/>
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <View
+            android:id="@+id/progressArrow"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/progress_arrow"/>
+    </LinearLayout>
 </LinearLayout>
