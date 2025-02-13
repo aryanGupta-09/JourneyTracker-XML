@@ -5,22 +5,41 @@
     android:padding="16dp">
 
     <!-- Progress Section -->
-    <TextView
-        android:id="@+id/progressText"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Progress: 0%"
-        android:textSize="16sp" />
-    
-    <TextView
-        android:id="@+id/journeyCompletedText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" - Journey Completed"
-        android:textSize="16sp"
-        android:textColor="@android:color/holo_green_dark"
-        android:visibility="gone"
-        android:layout_marginStart="4dp" />
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/progressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Progress: 0%"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/journeyCompletedText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Journey Completed"
+                android:textSize="16sp"
+                android:textColor="@android:color/holo_green_dark"
+                android:visibility="gone"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset" />
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -58,11 +77,12 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <!-- Buttons in horizontal layout -->
+    <!-- Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
 
         <Button
             android:id="@+id/switchUnitButton"
@@ -93,13 +113,12 @@
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <View
             android:id="@+id/progressArrow"
             android:layout_width="50dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/progress_arrow"/>
+            android:layout_height="match_parent"
+            android:background="@drawable/progress_arrow" />
     </LinearLayout>
 </LinearLayout>

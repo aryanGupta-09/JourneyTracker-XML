@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var switchUnitButton: Button
     private lateinit var nextStopButton: Button
+    private lateinit var resetButton: Button
     private lateinit var progressArrow: View
     private lateinit var distanceCovered: TextView
     private lateinit var distanceRemaining: TextView
@@ -30,9 +31,6 @@ class MainActivity : AppCompatActivity() {
 
         // Initialize JourneyManager first
         journeyManager = JourneyManager(this)
-
-        // Initialize recyclerView before using it
-        recyclerView = findViewById(R.id.recyclerView)
 
         // Initialize other views
         initializeViews()
@@ -54,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
         switchUnitButton = findViewById(R.id.switchUnitButton)
         nextStopButton = findViewById(R.id.nextStopButton)
+        resetButton = findViewById(R.id.resetButton)
         progressArrow = findViewById(R.id.progressArrow)
         distanceCovered = findViewById(R.id.distanceCovered)
         distanceRemaining = findViewById(R.id.distanceRemaining)
@@ -85,6 +84,13 @@ class MainActivity : AppCompatActivity() {
             updateProgress()
             adapter.updateProgress(journeyManager.getCurrentPosition())
             scrollToNextStop()
+        }
+
+        resetButton.setOnClickListener {
+            journeyManager.resetJourney()
+            updateProgress()
+            adapter.updateProgress(journeyManager.getCurrentPosition())
+            scrollToTop()
         }
     }
 
@@ -127,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                 if (currentPosition >= firstVisibleItem && currentPosition <= lastVisibleItem) {
                     val currentView = layoutManager.findViewByPosition(currentPosition)
                     currentView?.let { view ->
-                        visibleHeight = view.bottom - view.height/4
+                        visibleHeight = view.bottom - view.height / 4
                     }
                 } else if (currentPosition > lastVisibleItem) {
                     visibleHeight = recyclerView.height
@@ -150,5 +156,9 @@ class MainActivity : AppCompatActivity() {
         if (currentPosition == lastVisibleItem) {
             layoutManager.scrollToPositionWithOffset(currentPosition, 0)
         }
+    }
+
+    private fun scrollToTop() {
+        recyclerView.scrollToPosition(0)
     }
 }

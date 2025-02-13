@@ -64,4 +64,8 @@ class JourneyManager(context: Context) {
         val covered = getDistanceCovered()
         return total - covered
     }
+
+    fun resetJourney() {
+        currentPosition = -1
+    }
 }
