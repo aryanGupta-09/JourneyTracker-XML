@@ -20,7 +20,7 @@ This project is a Journey Tracker application built using the traditional Androi
 
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/yourusername/MC_A1.git
+    git clone https://github.com/aryanGupta-09/MC_A1.git
     ```
 2. **Open the project**:
     - Open Android Studio.
