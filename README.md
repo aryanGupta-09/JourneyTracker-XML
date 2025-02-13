@@ -18,9 +18,10 @@ This project is a Journey Tracker application built using the traditional Androi
 
 ## Installation
 
-1. **Clone the repository**:
+1. **Clone the repository and checkout to the XML/Kotlin branch**:
     ```sh
     git clone https://github.com/aryanGupta-09/MC_A1.git
+    git checkout xml_kotlin
     ```
 2. **Open the project**:
     - Open Android Studio.
