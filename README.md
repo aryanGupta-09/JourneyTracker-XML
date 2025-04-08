@@ -14,7 +14,7 @@ This project is a Journey Tracker application built using the traditional Androi
 
 ## Screenshots
 
-![image](https://github.com/user-attachments/assets/4d19a694-b9e7-465f-885a-3f8f5ef3664b)
+![screenshot](screenshot.png)
 
 ## Installation
 
